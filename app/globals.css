@@ -1,69 +1,97 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-}
 
 .container {
   max-width: 1440px;
   margin: auto;
-  padding: 30px 20px;
+  padding: 20px;
 }
 
-h1 {
+.page-title {
+  text-align: left;
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding-left: 10px;
 }
 
-.main {
+.layout {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  align-items: flex-start;
 }
 
 .sidebar {
   flex: 0 0 200px;
-}
-
-.filters {
-  background: white;
-  padding: 16px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
+  background: #fff;
+  padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.filters h3 {
-  margin-top: 16px;
-  margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: bold;
+.filters-section h3 {
+  margin: 10px 0 5px;
+  text-align: center;
+  color: rgb(26, 26, 105);
 }
 
-.filters button {
+.filter-button {
   display: inline-block;
   margin: 4px;
   padding: 6px 12px;
-  background-color: #c1f0c1;
-  border: 1px solid #7ecb20;
   border-radius: 4px;
+  background-color: #cfe8cc;
+  border: none;
   cursor: pointer;
   font-size: 14px;
-  text-transform: uppercase;
 }
 
-.filters button.active,
-.filters button:hover {
+.filter-button.active {
   background-color: #7ecb20;
   color: white;
+  font-weight: bold;
+}
+
+/* Grid Content */
+.content {
+  flex: 1;
+}
+
+.total-count {
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: larger;
 }
 
 .grid {
   display: grid;
-  flex: 1;
-  gap: 20px;
+  gap: 16px;
   grid-template-columns: repeat(1, 1fr);
 }
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card img {
+  height: 100px;
+  object-fit: contain;
+}
+
+.card h4 {
+  margin-top: 0.5rem;
+}
+
+.card p {
+  margin: 0.25rem 0;
+}
+
 
 @media (min-width: 700px) {
   .grid {
@@ -77,31 +105,66 @@ h1 {
   }
 }
 
-.card {
-  background: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  text-align: left;
+/* Pagination */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+.clear-filters-container {
+  text-align: center;
+  margin-bottom: 16px;
 }
 
-.card img {
-  width: 100%;
-  max-width: 120px;
-  margin-bottom: 12px;
+.filter-button.clear {
+  background-color: #ff6961;
+  color: white;
+  font-weight: bold;
+}
+.toast-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  gap: 1rem;
+  font-weight: 500;
+  padding: 5px;
+  word-break: break-word;
 }
 
-.card h4 {
-  margin: 8px 0;
-  font-size: 16px;
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 5px;
 }
 
-.card p {
-  margin: 4px 0;
+.close-btn:hover {
+  color: red;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.filter-button {
+  padding: 6px 12px;
   font-size: 14px;
+  cursor: pointer;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.card ul {
-  margin: 0 0 8px 16px;
-  padding: 0;
+.filter-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

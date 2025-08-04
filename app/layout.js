@@ -1,14 +1,18 @@
 import './globals.css';
+import ToastProvider from '../components/ToastProvider';
 
 export const metadata = {
   title: 'SpaceX Launch Programs',
-  description: 'Browse SpaceX launch history with filters',
+  description: 'Browse launches with filters',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ToastProvider />
+        {children}
+      </body>
     </html>
   );
 }
