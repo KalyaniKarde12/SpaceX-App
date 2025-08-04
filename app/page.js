@@ -32,7 +32,7 @@ export default async function Home({ searchParams }) {
       <h1 className="page-title">SpaceX Launch Programs</h1>
 
       <div className="layout">
-        <div className="sidebar sticky">
+        <div className="sidebar">
           <Filters />
         </div>
 
