@@ -1,40 +1,27 @@
 import axios from 'axios';
 
 export async function fetchLaunches(filters = {}) {
-  const { page = 1, launch_year, launch_success, land_success } = filters;
-  const url = 'https://api.spacexdata.com/v3/launches';
-
   try {
-    const response = await axios.get(url);
-    let all = response.data;
+    const baseUrl = process.env.NEXT_PUBLIC_SPACEX_API;
+    const url = new URL(baseUrl);
 
-    // ✅ Apply filters
-    if (launch_year) {
-      all = all.filter(launch => String(launch.launch_year) === String(launch_year));
-    }
+    // Apply filters to query params
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value) url.searchParams.append(key, value);
+    });
 
-    if (launch_success) {
-      all = all.filter(launch => String(launch.launch_success) === String(launch_success.toLowerCase()));
-    }
+    const page = parseInt(filters.page || '1', 10);
+    const response = await axios.get(url.toString());
 
-    if (land_success) {
-      all = all.filter(launch => 
-        launch.rocket?.first_stage?.cores?.some(core => 
-          String(core.land_success) === String(land_success.toLowerCase())
-        )
-      );
-    }
-
-    const total = all.length;
-
-    // ✅ Paginate filtered data
+    const all = response.data;
     const paginated = all.slice((page - 1) * 10, page * 10);
 
     return {
       paginated,
-      total
+      total: all.length,
     };
   } catch (error) {
-    throw new Error('api_failed');
+    console.error('Error fetching launches:', error);
+    throw new Error('API fetch failed');
   }
 }
