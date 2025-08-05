@@ -1,21 +1,25 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
-export default function Pagination({ page, totalPages, searchParams }) {
+export default function Pagination({ page, totalPages }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const buildPageLink = (newPage) => {
-    const params = new URLSearchParams(searchParams);
+  const handlePageChange = (newPage) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    // Update the page number but preserve all other filters
     params.set('page', newPage);
-    return `/?${params.toString()}`;
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   return (
     <div className="pagination">
       <button
         className="filter-button"
-        onClick={() => router.push(buildPageLink(page - 1))}
         disabled={page <= 1}
+        onClick={() => handlePageChange(page - 1)}
       >
         Previous
       </button>
@@ -24,8 +28,8 @@ export default function Pagination({ page, totalPages, searchParams }) {
 
       <button
         className="filter-button"
-        onClick={() => router.push(buildPageLink(page + 1))}
         disabled={page >= totalPages}
+        onClick={() => handlePageChange(page + 1)}
       >
         Next
       </button>

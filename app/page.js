@@ -46,8 +46,12 @@ export default async function Home({ searchParams }) {
           ) : (
             <div className="grid">
               {launches.map((launch) => (
-                <LaunchCard key={launch.flight_number} launch={launch} />
+                <LaunchCard
+                  key={`${launch.flight_number}-${launch.launch_date_utc}`}
+                  launch={launch}
+                />
               ))}
+
             </div>
           )}
 
